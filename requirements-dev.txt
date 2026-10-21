@@ -3,5 +3,5 @@
 # The FPGA tools (Quartus, Icarus Verilog) are not Python packages: see docs/procedures/install_tools.md
 pytest>=9.1.1,<10
 # Same series as the ruff rev in .pre-commit-config.yaml, so the hook, CI and you format alike.
-ruff>=0.17,<0.18
+ruff>=0.17.1,<0.18
 pre-commit>=3.7,<5
