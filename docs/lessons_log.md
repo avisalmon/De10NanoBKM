@@ -6,6 +6,17 @@ Each line points to where the full rule lives. Most of them came from something 
 
 ## 2026-10-21
 
+- **CI runs on GitHub, and the first push was green.** The secret scan, lint, every test and the template's
+  testbench passed on Ubuntu 24.04, where `apt` installs Icarus Verilog 12.0, the same version as on Windows. The log
+  prints `iverilog -V`, so a new version shows up when `ubuntu-latest` moves on.
+  [ci.yml](../.github/workflows/ci.yml) · [blueprint_roadmap.md](blueprint_roadmap.md)
+- **One line ending, LF, in git and on disk.** Files written on Windows before `git init` had CRLF. `.gitattributes`
+  (`eol=lf`) fixes what git stores, but a test that turned every `\n` into `\r\n` met text that already had `\r\n`,
+  made `\r\r\n`, and failed. The test now normalises first, and the files are LF.
+  [.gitattributes](../.gitattributes) · [test_skills.py](../tests/test_skills.py)
+- **The commit hook and CI must run the same formatter.** The pre-commit hook pinned ruff 0.15 while CI installed the
+  newest, so a commit the hook accepted could fail in CI. Both now use the 0.17 series, and the two pins move
+  together. [requirements-dev.txt](../requirements-dev.txt) · [.pre-commit-config.yaml](../.pre-commit-config.yaml)
 - **A `403` can be your own network, not the site.** A company web filter blocked the Icarus Verilog installer's
   site, and `winget` only said `Forbidden (403)`. Open the address in a browser and read the page before blaming the
   site. [gotcha 17](procedures/gotchas.md)

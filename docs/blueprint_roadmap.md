@@ -14,6 +14,12 @@ how.
   bitstream checks; the update check; the "Last updated" mark.
 * **Simulation on Windows**: the template passes its 10-check testbench with Icarus Verilog 12.0
   (`fpga.py sim --all`), and `--waves` writes its waveform file.
+* **CI on GitHub**: the first push (21 October 2026) was green: gitleaks over the full history (`no leaks found`),
+  ruff, all 107 tests, the template's testbench and the skills check, on Ubuntu 24.04, where `apt` installs Icarus
+  Verilog 12.0, the same version as on Windows. `ubuntu-latest` is moving to Ubuntu 26 from 19 October 2026; the log
+  prints `iverilog -V`, so a new Icarus version will show there.
+* **Every `#section` link in the docs** leads to a real heading in GitHub's rendering of the target page (checked
+  after the first push: 19 links). The repo's own link test checks the files, not the sections.
 * **`fpga.py doctor` on a real computer**: it found Python, Git, the GitHub CLI, Icarus and GTKWave, found Quartus
   17.1, saw that it had the MAX 10 only, and said what to install.
 * **The Quartus messages the docs quote** (the error and warning numbers in [gotchas.md](procedures/gotchas.md) and
@@ -28,8 +34,6 @@ Written from Terasic's and Intel's documents, community guides, or the code's ow
 The first person to do each one should record the evidence here and in the template's README, and fix whatever was
 wrong:
 
-- [ ] **CI on GitHub** (Ubuntu): secret scan, lint, tests, the simulation of every design, the skills check; and
-      the Icarus version Ubuntu installs (the template's README says 12.0)
 - [ ] **Compiling the template for the Cyclone V** (`5CSEBA6U23I7`) with Quartus Prime Lite: the computer this was
       written on had no Cyclone V device package
 - [ ] **Timing met** at 50 MHz with the template's `.sdc`, and `fpga.py build` reading the worst slack from a real

@@ -28,7 +28,7 @@ Holding `KEY1` and flipping each switch checks every input and the low four LEDs
 
 | Step | State | Evidence |
 |---|---|---|
-| Simulated: `python scripts/fpga.py sim blinky` | **done** | `PASS: tb_blinky, 10 checks` with Icarus Verilog 12.0 on Windows and in CI (Ubuntu) |
+| Simulated: `python scripts/fpga.py sim blinky` | **done** | `PASS: tb_blinky, 10 checks` with Icarus Verilog 12.0 on Windows and in CI (Ubuntu 24.04) |
 | Compiled, timing met: `python scripts/fpga.py build blinky` | not yet | Needs Quartus Prime with the Cyclone V device support, which was not installed where this was written |
 | Seen working on the board | not yet | |
 

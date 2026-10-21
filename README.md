@@ -3,7 +3,7 @@
 ### From a DE10-Nano in its box to your own design running on it, with an AI assistant building it beside you.
 
 <!-- last-updated:start -->
-**Last updated 21 October 2026** · 4 new lessons · [See what's new](docs/lessons_log.md)
+**Last updated 21 October 2026** · 7 new lessons · [See what's new](docs/lessons_log.md)
 <!-- last-updated:end -->
 
 The best known methods for the **Terasic DE10-Nano** (an Intel/Altera Cyclone V SoC: an FPGA and a dual-core ARM
