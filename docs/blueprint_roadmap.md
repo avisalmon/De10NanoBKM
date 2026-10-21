@@ -20,6 +20,9 @@ how.
   prints `iverilog -V`, so a new Icarus version will show there.
 * **Every `#section` link in the docs** leads to a real heading in GitHub's rendering of the target page (checked
   after the first push: 19 links). The repo's own link test checks the files, not the sections.
+* **`check_updates.py` against the real repository**: after three Dependabot pull requests were merged on GitHub, it
+  listed them, fast-forwarded the local copy, said the dependencies had changed and to run the tests, and pushed
+  nothing. The tests check it against local git repositories standing in for GitHub.
 * **`fpga.py doctor` on a real computer**: it found Python, Git, the GitHub CLI, Icarus and GTKWave, found Quartus
   17.1, saw that it had the MAX 10 only, and said what to install.
 * **The Quartus messages the docs quote** (the error and warning numbers in [gotchas.md](procedures/gotchas.md) and
