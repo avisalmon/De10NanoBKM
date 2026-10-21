@@ -1,0 +1,18 @@
+repos:
+  # Pure-Python secret/private-file check: needs only Python and git, so it cannot fail on a
+  # newcomer's machine and block commits. (CI also runs gitleaks over the full history.)
+  # Install once, inside the env:  pre-commit install
+  - repo: local
+    hooks:
+      - id: no-secrets
+        name: no secrets, licence files or build outputs in this commit
+        entry: python scripts/check_staged_secrets.py
+        language: python
+        pass_filenames: false
+        always_run: true
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format

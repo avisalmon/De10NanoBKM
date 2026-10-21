@@ -1,0 +1,7 @@
+# The blueprint's own tooling (tests, lint, the commit hook). Install inside env/:
+#   .\env\Scripts\python.exe -m pip install -r requirements-dev.txt
+# The FPGA tools (Quartus, Icarus Verilog) are not Python packages: see docs/procedures/install_tools.md
+pytest>=8,<9
+# Same series as the ruff rev in .pre-commit-config.yaml, so the hook, CI and you format alike.
+ruff>=0.17,<0.18
+pre-commit>=3.7,<5

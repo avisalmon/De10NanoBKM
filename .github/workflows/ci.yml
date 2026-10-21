@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # secret scan reads history
+      # Not gitleaks-action: on a repository's very first push it asks for the parent of the root
+      # commit, fails, and never scans. Running the pinned binary over the full history has no such trap.
+      - name: Secret scan (gitleaks, full history)
+        run: |
+          v=8.24.3
+          base=https://github.com/gitleaks/gitleaks/releases/download/v$v
+          curl -sSfL -o gl.tgz $base/gitleaks_${v}_linux_x64.tar.gz
+          curl -sSfL -o sums.txt $base/gitleaks_${v}_checksums.txt
+          grep " gitleaks_${v}_linux_x64.tar.gz$" sums.txt | sed 's/  .*/  gl.tgz/' | sha256sum -c -
+          tar xzf gl.tgz gitleaks
+          ./gitleaks detect --source . --redact --no-banner --verbose
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      # The simulator, so the RTL is exercised on every push. Quartus is too big for CI:
+      # compiling and burning happen on the owner's computer (see docs/blueprint_roadmap.md).
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq iverilog
+          iverilog -V 2>&1 | head -n 1 || true
+      - name: Lint
+        run: ruff check . && ruff format --check .
+      - name: Tests
+        run: pytest -q
+      - name: Simulate every template and project (self-checking testbenches)
+        run: python scripts/fpga.py sim --all
+      - name: Claude and Copilot skills are identical
+        run: python scripts/sync_skills.py --check

@@ -1,0 +1,3 @@
+# Quartus Prime project file. The settings are in blinky.qsf; this file only names the revision.
+
+PROJECT_REVISION = "blinky"
